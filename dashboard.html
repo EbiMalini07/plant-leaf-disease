@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card p-4 shadow">
+
+        <h3>Welcome, {{ username }} 👋</h3>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-success mt-3">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Upload Form -->
+        <form method="POST" action="/upload" enctype="multipart/form-data" class="mt-4">
+            <input type="file" name="image" class="form-control mb-3" required>
+            <button type="submit" class="btn btn-success w-100">Upload Image</button>
+        </form>
+
+        <!-- Prediction History -->
+        {% if predictions %}
+        <hr class="mt-4">
+        <h5 class="mt-3">Prediction History</h5>
+
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Leaf Image</th>
+                    <th>Disease</th>
+                    <th>Confidence</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in predictions %}
+                <tr>
+                    <td>
+                        {% if p.image_path %}
+                            <img src="{{ p.image_path }}" width="100" alt="Leaf Image">
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>{{ p.disease }}</td>
+                    <td>{{ p.percentage }}</td>
+                    <td>{{ p.date.strftime("%d-%m-%Y %H:%M") }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <a href="/logout" class="btn btn-danger mt-3 w-100">Logout</a>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediction Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card p-4 shadow">
+        <h3>Disease: {{ result }}</h3>
+        <img src="{{ image }}" width="300" class="mb-3">
+        <p><b>Percentage:</b> {{ info.percentage }}</p>
+        <p><b>Causes:</b> {{ info.causes }}</p>
+        <p><b>Cure:</b> {{ info.cure }}</p>
+
+        {% if language == "Tamil" %}
+        <p><b>தமிழ் விளக்கம்:</b> {{ info.tamil }}</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>
